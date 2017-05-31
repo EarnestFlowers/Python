@@ -1,9 +1,9 @@
-#Python Examples.
+# Python Examples.
 
 
 ------------------------
-#Instagram Stuff
--instagram.py   / /  Python Instagram Visual Timeline Liker
+# Instagram Stuff
+- instagram.py   / /  Python Instagram Visual Timeline Liker
 Web scrapping
 - pip install selenium
 - pip install Keys
