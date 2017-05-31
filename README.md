@@ -1,6 +1,6 @@
 Python Examples.
 
--instagram.py   / /  Python-Instagram-Visual-Timeline-Liker
+-instagram.py   / /  Python Instagram Visual Timeline Liker
 Web scrapping
 - pip install selenium
 - pip install Keys
