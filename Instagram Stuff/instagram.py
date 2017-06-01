@@ -1,5 +1,6 @@
 #Developed by Earnest Flowers
-#version 1.0
+#version 1.1
+#updated - 6/1/2017
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -41,29 +42,34 @@ def endofIGmessagebox(mytitle, mymessage):
     messagebox.showinfo(mytitle, mymessage)
 
 #function pass - email, pw
-login_IG("you IG Email", "your IG Password")
+login_IG("your@email.com", "yourpassword!")
 
-hitlike = chromedriver.find_elements_by_css_selector('span[class ^="_soakw coreSpriteHeartOpen"]')
+hitlike = chromedriver.find_elements_by_css_selector('span[class ^="_soakw coreSpriteLikeHeartOpen"]')
 
+likecounter = 0
 i = 0
-while i < len(hitlike):
 
+while i < len(hitlike):
     for elements in hitlike:
-        moveit = chromedriver.find_elements_by_css_selector('span[class ^="_soakw coreSpriteHeartOpen"]')
+        moveit = chromedriver.find_elements_by_css_selector('span[class ^="_soakw coreSpriteLikeHeartOpen"]')
         elements.location_once_scrolled_into_view
         elements.click()
         time.sleep(1)
         i+=1
         if i == len(hitlike):
+            likecounter = likecounter + i
             body = chromedriver.find_element_by_css_selector('body')
             body.send_keys(Keys.PAGE_DOWN*3)
             time.sleep(2)
             i = 0
     
     #find new unliked posts
-    hitlike = chromedriver.find_elements_by_css_selector('span[class ^="_soakw coreSpriteHeartOpen"]')
+    hitlike = chromedriver.find_elements_by_css_selector('span[class ^="_soakw coreSpriteLikeHeartOpen"]')
 
-endofIGmessagebox("IG Liker","No new IG posts")
+if likecounter > 0:
+    endofIGmessagebox("IG Liker","IG posts liked : " + str(likecounter))
+else:
+    endofIGmessagebox("IG Liker","No new IG posts found : " + str(likecounter) + " new posts liked")
 
 time.sleep(1)
 chromedriver.quit()
