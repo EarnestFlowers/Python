@@ -1,6 +1,6 @@
 #Developed by Earnest Flowers
-#version 1.1
-#updated - 6/1/2017
+#version 1.12
+#updated - 6/6/2017
 #using BeautifulSoup - to get stocks symbol, stock quantity, stock purchase price from file
 #web scraps yahoo finance to show net gains/losses
 
@@ -26,6 +26,7 @@ totalinvestment = 0
 
 ##loop for all symbols in symbolslist from symbolfile
 i = 0
+countstock = 1
 while i < len(readsymbollist):
     url = "https://finance.yahoo.com/quote/" + readsymbollist[i]
     sauce = urllib.request.urlopen(url).read()
@@ -34,9 +35,10 @@ while i < len(readsymbollist):
     #finance yahoo
     stockcompany = soup.find('h1', {'data-reactid': '7'}).text
     currentprice = soup.find('span', {'data-reactid': '36'}).text
+    currentearnings = soup.find('span', {'data-reactid': '37'}).text
 
-    stockoutfile.write(stockcompany + " is currently trading at $" + currentprice + "\n")
-    #i+=1
+    stockoutfile.write(str(countstock) + ". " + stockcompany + " is currently trading at $" + currentprice + "\n")
+    stockoutfile.write("Current earnings of " + currentearnings + "\n")
 
     myshares = readsymbollist[i + 1]
     myprice = readsymbollist[i + 2]
@@ -82,6 +84,7 @@ while i < len(readsymbollist):
     totalinvestment = round(totalinvestment, 2)
     i+=3
     stockoutfile.write("\n")
+    countstock = countstock + 1
 
 totalinvestment = locale.currency(totalinvestment, grouping = True )
 stockoutfile.write("Total investment portfolio : " + str(totalinvestment) + "\n")
